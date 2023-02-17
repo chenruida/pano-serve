@@ -1,0 +1,30 @@
+{
+    "label": "酒类",
+    "children": [
+        {
+            "label": "酱香型",
+            "children": [
+                {
+                    "label": "茅台",
+                    "children": [
+                        {
+                            "label": "瓶身"
+                        },
+                        {
+                            "label": "包装"
+                        },
+                        {
+                            "label": "纸箱"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "label": "浓香型"
+        },
+        {
+            "label": "清香型"
+        }
+    ]
+}
