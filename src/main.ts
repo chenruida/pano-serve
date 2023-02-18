@@ -14,7 +14,7 @@ async function bootstrap() {
   });
   const options = new DocumentBuilder()
     .setTitle('环物全景后台')
-    .setDescription('公安部环物全景后台')
+    .setDescription('环物全景后台')
     .setVersion('1.0')
     .addTag('pano')
     .build();
