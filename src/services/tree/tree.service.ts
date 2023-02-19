@@ -22,7 +22,7 @@ export class TreeService {
     return temp;
   }
 
-  async delete(sid: number) {
+  async delete(sid: string) {
     // 这里是异步的  remove 方法删除成功并返回相应的个数
     const temp = await this.treeModel.remove({ _id: sid });
     return temp;
