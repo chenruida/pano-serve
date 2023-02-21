@@ -28,9 +28,7 @@ export class TreeController {
   @ApiResponse({ description: '更新树' })
   @Get('delete')
   async delete(@Query() query) {
-    console.log(query.sid);
-    // const sid = query.sid;
-    // return await this.delete(sid);
+    return this.treeService.delete(query.sid);
   }
 
   /**
@@ -43,6 +41,6 @@ export class TreeController {
   @ApiResponse({ description: '更新树' })
   @Post('update')
   async update(@Body() updateBody: TreeUpdate) {
-    return this.update(updateBody);
+    return this.treeService.update(updateBody);
   }
 }

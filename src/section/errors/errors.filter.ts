@@ -24,7 +24,7 @@ export class ExceptionsFilter implements ExceptionFilter {
 
     const errorResponse = {
       message: message || '请求失败',
-      status: 1,
+      status: 500,
     };
 
     const status =

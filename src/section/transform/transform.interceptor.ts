@@ -4,7 +4,7 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { Observable, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 
 interface Response<T> {
   data: T;
@@ -19,11 +19,11 @@ export class TransformInterceptor<T>
     next: CallHandler,
   ): Observable<Response<T>> {
     return next.handle().pipe(
-      tap((rawData) => {
+      map((rawData) => {
         return {
-          data: rawData,
-          status: 0,
+          status: 200,
           message: '请求成功',
+          data: rawData,
         };
       }),
     );

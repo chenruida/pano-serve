@@ -19,16 +19,16 @@ export class TreeService {
 
   async update(treeUpdate: TreeUpdate): Promise<any> {
     // 这里是异步的  remove 方法删除成功并返回相应的个数
-    const temp = await this.treeModel.updateOne(
-      { _id: treeUpdate.sid },
-      { $set: treeUpdate.tree },
+    const temp = await this.treeModel.findByIdAndUpdate(
+      treeUpdate.sid,
+      treeUpdate.tree,
     );
     return temp;
   }
 
-  async delete(sid: string): Promise<number> {
+  async delete(sid: string): Promise<Tree> {
     // 这里是异步的  remove 方法删除成功并返回相应的个数
-    const temp = await this.treeModel.remove({ _id: sid });
+    const temp = await this.treeModel.findByIdAndDelete(sid);
     return temp;
   }
 }
