@@ -2,6 +2,9 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger } from '@nestjs/common';
+import { TransformInterceptor } from './section/transform/transform.interceptor';
+import { ValidationPipe } from './section/validation/validation.pipe';
+import { ExceptionsFilter } from './section/errors/errors.filter';
 
 export const IS_DEV = process.env.NODE_ENV !== 'prob';
 const PORT = process.env.PORT || 8080;
@@ -20,6 +23,9 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(PREFIX, app, document);
+  app.useGlobalFilters(new ExceptionsFilter());
+  app.useGlobalInterceptors(new TransformInterceptor());
+  app.useGlobalPipes(new ValidationPipe());
   await app.listen(PORT, () => {
     logger.log(
       `\n========服务已经启动,接口请访问: =========\n

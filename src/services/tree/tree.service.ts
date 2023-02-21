@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { TreeUpdate } from 'src/models/tree-update.model';
 import { Tree, TreeDocument } from 'src/schemas/tree.schema';
 
 @Injectable()
@@ -16,13 +17,16 @@ export class TreeService {
     return this.treeModel.find().exec();
   }
 
-  async update(sid: string, data: any): Promise<any> {
+  async update(treeUpdate: TreeUpdate): Promise<any> {
     // 这里是异步的  remove 方法删除成功并返回相应的个数
-    const temp = await this.treeModel.updateOne({ _id: sid }, { $set: data });
+    const temp = await this.treeModel.updateOne(
+      { _id: treeUpdate.sid },
+      { $set: treeUpdate.tree },
+    );
     return temp;
   }
 
-  async delete(sid: string) {
+  async delete(sid: string): Promise<number> {
     // 这里是异步的  remove 方法删除成功并返回相应的个数
     const temp = await this.treeModel.remove({ _id: sid });
     return temp;

@@ -1,13 +1,10 @@
-import { Controller, Post, Query } from '@nestjs/common';
+import { Body, Controller, Post, Query } from '@nestjs/common';
 import { Get } from '@nestjs/common';
-import { ApiHeader } from '@nestjs/swagger';
-import { Tree } from 'src/schemas/tree.schema';
+import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { TreeUpdate } from 'src/models/tree-update.model';
 import { TreeService } from 'src/services/tree/tree.service';
 
-@ApiHeader({
-  name: '树形图API',
-  description: '',
-})
+@ApiTags('树形图API')
 @Controller('tree')
 export class TreeController {
   constructor(private readonly treeService: TreeService) {}
@@ -16,6 +13,7 @@ export class TreeController {
    * 获取树形图
    * @returns 树形图
    */
+  @ApiResponse({ description: '获取树形图' })
   @Get('findAll')
   async findAll() {
     return this.treeService.findAll();
@@ -26,9 +24,13 @@ export class TreeController {
    * @param sid id
    * @returns 树列表
    */
-  @Post('delete')
-  async delete(@Query() sid: string) {
-    return this.delete(sid);
+  @ApiQuery({ name: 'sid' })
+  @ApiResponse({ description: '更新树' })
+  @Get('delete')
+  async delete(@Query() query) {
+    console.log(query.sid);
+    // const sid = query.sid;
+    // return await this.delete(sid);
   }
 
   /**
@@ -37,8 +39,10 @@ export class TreeController {
    * @param tree 树
    * @returns
    */
+  @ApiBody({ type: TreeUpdate })
+  @ApiResponse({ description: '更新树' })
   @Post('update')
-  async update(@Query() sid: string, tree: Tree) {
-    return this.update(sid, tree);
+  async update(@Body() updateBody: TreeUpdate) {
+    return this.update(updateBody);
   }
 }
