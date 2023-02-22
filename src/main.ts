@@ -12,9 +12,14 @@ const PREFIX = process.env.PREFIX || '/';
 async function bootstrap() {
   const logger: Logger = new Logger('main.ts');
   const app = await NestFactory.create(AppModule, {
-    // 开启日志级别打印
+    /**
+     *日志级别
+     */
     logger: IS_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn'],
   });
+  /**
+   * swagger 配置
+   */
   const options = new DocumentBuilder()
     .setTitle('环物全景后台')
     .setDescription('环物全景后台')
@@ -23,9 +28,15 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(PREFIX, app, document);
+  /**
+   * response 拦截器
+   */
   app.useGlobalFilters(new ExceptionsFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
   app.useGlobalPipes(new ValidationPipe());
+  /**
+   * begin
+   */
   await app.listen(PORT, () => {
     logger.log(
       `\n========服务已经启动,接口请访问: =========\n
