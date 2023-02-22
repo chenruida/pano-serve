@@ -1,59 +1,60 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
+import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
-import { FiledConfig } from 'src/models/filed-config.model';
+import { FiledConfig } from 'src/models/field/filed-config.model';
 
 export type FieldDocument = Field & Document;
 
 @Schema()
 export class Field extends Document {
-  /**
-   * 字段配置
-   * @example
-   */
-  @Prop({ required: true })
+  @ApiProperty({ description: '字段配置' })
+  @Prop({ required: true, type: FiledConfig })
   config: FiledConfig;
 
-  /**
-   * 槽方法
-   * @example
-   */
-  // @Prop()
-  // slot: object;
+  @ApiProperty({ description: '占位符' })
+  @Prop(
+    raw({
+      prepend: String,
+      append: String,
+    }),
+  )
+  slot: {};
 
-  /**
-   * 占位符
-   * @example
-   */
+  @ApiProperty({ description: '占位符' })
   @Prop()
   placeholder: string;
 
-  /**
-   * clearable
-   * @example
-   */
+  @ApiProperty({ description: '能否清空' })
   @Prop({ default: true })
   clearable: boolean;
 
-  @Prop({ required: false, default: '' })
+  @ApiProperty({ description: '前缀' })
+  @Prop({ default: false })
   prefixIcon: string;
 
-  @Prop({ required: false, default: '' })
+  @ApiProperty({ description: '后缀' })
+  @Prop({ default: false })
   suffixIcon: string;
 
-  @Prop({ name: '', required: false, default: null })
+  @ApiProperty({ description: '最大长度' })
+  @Prop({ default: false })
   maxlength: string;
 
-  @Prop()
+  @ApiProperty({ description: '最大长度' })
+  @Prop({ default: false })
   showWordLimit: boolean;
 
-  @Prop()
+  @ApiProperty({ description: '只读' })
+  @Prop({ default: false })
   readonly: boolean;
 
-  @Prop()
+  @ApiProperty({ description: '禁用' })
+  @Prop({ default: false })
   disabled: boolean;
 
   @Prop()
-  __vModel__: string;
+  @ApiProperty({ description: '绑定数据名称' })
+  vModel: string;
 }
 
 export const FieldSchema = SchemaFactory.createForClass(Field);
