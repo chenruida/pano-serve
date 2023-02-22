@@ -18,8 +18,21 @@ export class Goods extends Document {
   attributeId: string;
 
   @ApiProperty({ description: '全景' })
-  @Prop({ required: true, type: [String] })
-  panos: [string];
+  @Prop({
+    required: true,
+    type: [
+      {
+        name: String,
+        sid: String,
+      },
+    ],
+  })
+  panos: [
+    {
+      name: string;
+      sid: string;
+    },
+  ];
 }
 
 export const GoodsSchema = SchemaFactory.createForClass(Goods);
