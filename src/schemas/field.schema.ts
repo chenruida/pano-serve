@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
-import { FiledConfig } from 'src/models/field/filed-config.model';
+import { FiledConfig } from 'src/models/filed-config.model';
 
 export type FieldDocument = Field & Document;
 
@@ -18,7 +18,10 @@ export class Field extends Document {
       append: String,
     }),
   )
-  slot: {};
+  slot: {
+    prepend: string;
+    append: string;
+  };
 
   @ApiProperty({ description: '占位符' })
   @Prop()

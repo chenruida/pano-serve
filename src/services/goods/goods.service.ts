@@ -1,26 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGoodDto } from '../../models/goods/create-good.dto';
 import { UpdateGoodDto } from '../../models/goods/update-good.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { GoodsDocument } from 'src/schemas/goods.schema';
 
 @Injectable()
 export class GoodsService {
-  create(createGoodDto: CreateGoodDto) {
-    return 'This action adds a new good';
+  constructor(@InjectModel('goods') private goodsModel: Model<GoodsDocument>) {}
+  async create(createGoodDto: CreateGoodDto) {
+    return await this.goodsModel.create(createGoodDto);
   }
 
-  findAll() {
-    return `This action returns all goods`;
+  async findAll() {
+    return await this.goodsModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} good`;
+  async findOne(id: string) {
+    return await this.goodsModel.find({ _id: { id } });
   }
 
-  update(id: number, updateGoodDto: UpdateGoodDto) {
-    return `This action updates a #${id} good`;
+  async update(id: string, updateGoodDto: UpdateGoodDto): Promise<any> {
+    return await this.goodsModel.updateOne({ _id: { id } }, updateGoodDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} good`;
+  async remove(id: string): Promise<any> {
+    return await this.goodsModel.deleteOne({ _id: { id } });
   }
 }

@@ -1,7 +1,7 @@
 import { Body, Controller, Post, Query } from '@nestjs/common';
 import { Get } from '@nestjs/common';
 import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { TreeUpdate } from 'src/models/tree-update.model';
+import { TreeUpdate } from 'src/models/tree/tree-update.model';
 import { TreeService } from 'src/services/tree/tree.service';
 
 @ApiTags('树形图API')

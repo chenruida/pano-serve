@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { FieldController } from './field.controller';
-import { FieldService } from '../../services/field/field.service';
+import { FieldService } from '../../services/field.service';
 
 describe('FieldController', () => {
   let controller: FieldController;

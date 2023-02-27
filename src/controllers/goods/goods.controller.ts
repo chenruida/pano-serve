@@ -7,9 +7,9 @@ import {
   Param,
   Delete,
 } from '@nestjs/common';
-import { GoodsService } from '../../services/goods/goods.service';
-import { CreateGoodDto } from '../../models/goods/create-good.dto';
-import { UpdateGoodDto } from '../../models/goods/update-good.dto';
+import { GoodsService } from 'src/services/goods/goods.service';
+import { CreateGoodDto } from 'src/models/goods/create-good.dto';
+import { UpdateGoodDto } from 'src/models/goods/update-good.dto';
 
 @Controller('goods')
 export class GoodsController {
@@ -27,16 +27,16 @@ export class GoodsController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.goodsService.findOne(+id);
+    return this.goodsService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGoodDto: UpdateGoodDto) {
-    return this.goodsService.update(+id, updateGoodDto);
+    return this.goodsService.update(id, updateGoodDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.goodsService.remove(+id);
+    return this.goodsService.remove(id);
   }
 }

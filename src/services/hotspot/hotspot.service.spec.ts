@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { TreeService } from './tree.serviceerviceervice';
+import { HotspotService } from '../hotspot./services/hotspot.service';
 
-describe('TreeService', () => {
-  let service: TreeService;
+describe('HotspotService', () => {
+  let service: HotspotService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [TreeService],
+      providers: [HotspotService],
     }).compile();
 
-    service = module.get<TreeService>(TreeService);
+    service = module.get<HotspotService>(HotspotService);
   });
 
   it('should be defined', () => {

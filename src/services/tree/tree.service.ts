@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { TreeUpdate } from 'src/models/tree-update.model';
+import { TreeUpdate } from 'src/models/tree/tree-update.model';
 import { Tree, TreeDocument } from 'src/schemas/tree.schema';
 
 @Injectable()
