@@ -7,6 +7,7 @@ import { setupMongodb } from './db/mongoose.setup';
 import { FieldModule } from './modules/field.module';
 import { GoodsModule } from './modules/goods.module';
 import { HotspotModule } from './modules/hotspot.module';
+import { FileModule } from './modules/file.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { HotspotModule } from './modules/hotspot.module';
     FieldModule,
     GoodsModule,
     HotspotModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],

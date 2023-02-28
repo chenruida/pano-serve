@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
-import { FiledConfig } from 'src/models/filed-config.model';
+import { FiledConfig } from 'src/models/field/filed-config.model';
 
 export type FieldDocument = Field & Document;
 
