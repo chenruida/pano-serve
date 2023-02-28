@@ -8,6 +8,7 @@ import { FieldModule } from './modules/field.module';
 import { GoodsModule } from './modules/goods.module';
 import { HotspotModule } from './modules/hotspot.module';
 import { FileModule } from './modules/file.module';
+import { PanoModule } from './modules/pano.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { FileModule } from './modules/file.module';
     GoodsModule,
     HotspotModule,
     FileModule,
+    PanoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
