@@ -12,8 +12,24 @@ export class GoodsService {
     return await this.goodsModel.create(createGoodDto);
   }
 
-  async findAll() {
-    return await this.goodsModel.find().exec();
+  async findAll(pageNumber: number, pageSize: number) {
+    const count = await this.goodsModel.count();
+    if ((pageNumber - 1) * pageSize >= count) {
+      return {
+        status: 'extend',
+      };
+    } else {
+      const items = await this.goodsModel
+        .find()
+        .skip((pageNumber - 1) * pageSize)
+        .limit(pageSize)
+        .sort({ _id: -1 })
+        .exec();
+      return {
+        total: count,
+        items: items,
+      };
+    }
   }
 
   async findOne(id: string) {

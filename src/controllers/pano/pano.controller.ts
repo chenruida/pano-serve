@@ -27,16 +27,16 @@ export class PanoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.panoService.findOne(+id);
+    return this.panoService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePanoDto: UpdatePanoDto) {
-    return this.panoService.update(+id, updatePanoDto);
+    return this.panoService.update(id, updatePanoDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.panoService.remove(+id);
+    return this.panoService.remove(id);
   }
 }

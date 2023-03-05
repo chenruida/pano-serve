@@ -6,11 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { GoodsService } from 'src/services/goods/goods.service';
 import { CreateGoodDto } from 'src/models/goods/create-good.dto';
 import { UpdateGoodDto } from 'src/models/goods/update-good.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('商品')
 @Controller('goods')
@@ -23,8 +24,10 @@ export class GoodsController {
   }
 
   @Get()
-  findAll() {
-    return this.goodsService.findAll();
+  @ApiQuery({ name: 'pageNumber', type: Number })
+  @ApiQuery({ name: 'pageSize', type: Number })
+  findAll(@Query() query) {
+    return this.goodsService.findAll(+query.pageNumber, +query.pageSize);
   }
 
   @Get(':id')

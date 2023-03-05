@@ -1,4 +1,4 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory, raw } from '@nestjs/mongoose';
 import { ApiProperty } from '@nestjs/swagger';
 import { Document } from 'mongoose';
 
@@ -10,13 +10,31 @@ export class Hotspot extends Document {
   name: string;
 
   @ApiProperty({
+    description: '航带',
+    type: raw({
+      row: Number,
+      clo: Number,
+    }),
+  })
+  @Prop({
+    required: true,
+    type: Object,
+  })
+  location: {
+    row: number;
+    clo: number;
+  };
+
+  @ApiProperty({
     description: '位置',
-    type: {
+  })
+  @Prop({
+    required: true,
+    type: raw({
       x: Number,
       y: Number,
-    },
+    }),
   })
-  @Prop({ required: true, type: {} })
   position: {
     x: number;
     y: number;

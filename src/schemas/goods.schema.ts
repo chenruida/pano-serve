@@ -15,25 +15,15 @@ export class Goods extends Document {
   fields: [string];
 
   @ApiProperty({ description: '属性' })
-  @Prop({ required: true, type: String })
+  @Prop({ required: false, type: String })
   attributeId: string;
 
   @ApiProperty({ description: '全景' })
   @Prop({
-    required: true,
-    type: [
-      {
-        name: String,
-        sid: String,
-      },
-    ],
+    required: false,
+    type: [String],
   })
-  panos: [
-    {
-      name: string;
-      sid: string;
-    },
-  ];
+  panos: [string];
 }
 
 export const GoodsSchema = SchemaFactory.createForClass(Goods);

@@ -1,26 +1,33 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePanoDto } from '../../models/pano/create-pano.dto';
 import { UpdatePanoDto } from '../../models/pano/update-pano.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
+import { PanoDocument } from 'src/schemas/pano.schema';
 
 @Injectable()
 export class PanoService {
-  create(createPanoDto: CreatePanoDto) {
-    return 'This action adds a new pano';
+  constructor(
+    @InjectModel('pano')
+    private panoModel: Model<PanoDocument>,
+  ) {}
+  async create(createPanoDto: CreatePanoDto) {
+    return await this.panoModel.create(createPanoDto);
   }
 
-  findAll() {
-    return `This action returns all pano`;
+  async findAll() {
+    return await this.panoModel.find().exec();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pano`;
+  async findOne(id: string) {
+    return await this.panoModel.findById(id);
   }
 
-  update(id: number, updatePanoDto: UpdatePanoDto) {
-    return `This action updates a #${id} pano`;
+  update(id: string, updatePanoDto: UpdatePanoDto) {
+    return this.panoModel.findByIdAndUpdate(id, updatePanoDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} pano`;
+  remove(id: string) {
+    return this.panoModel.findByIdAndDelete(id);
   }
 }
