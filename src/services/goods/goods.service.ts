@@ -33,14 +33,14 @@ export class GoodsService {
   }
 
   async findOne(id: string) {
-    return await this.goodsModel.find({ _id: { id } });
+    return await this.goodsModel.findById(id);
   }
 
   async update(id: string, updateGoodDto: UpdateGoodDto): Promise<any> {
-    return await this.goodsModel.updateOne({ _id: { id } }, updateGoodDto);
+    return await this.goodsModel.findByIdAndUpdate(id, updateGoodDto);
   }
 
   async remove(id: string): Promise<any> {
-    return await this.goodsModel.deleteOne({ _id: { id } });
+    return await this.goodsModel.findByIdAndDelete(id);
   }
 }
