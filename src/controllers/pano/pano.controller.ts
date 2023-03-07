@@ -11,7 +11,6 @@ import { PanoService } from '../../services/pano/pano.service';
 import { CreatePanoDto } from '../../models/pano/create-pano.dto';
 import { UpdatePanoDto } from '../../models/pano/update-pano.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
-import { type } from 'os';
 
 @ApiTags('环物全景')
 @Controller('pano')

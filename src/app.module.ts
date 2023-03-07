@@ -9,7 +9,8 @@ import { GoodsModule } from './modules/goods.module';
 import { HotspotModule } from './modules/hotspot.module';
 import { FileModule } from './modules/file.module';
 import { PanoModule } from './modules/pano.module';
-
+import { AuthModule } from './modules/auth.module';
+import { UsersModule } from './modules/users.module';
 @Module({
   imports: [
     setupConfig(),
@@ -20,6 +21,8 @@ import { PanoModule } from './modules/pano.module';
     HotspotModule,
     FileModule,
     PanoModule,
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [AppService],
