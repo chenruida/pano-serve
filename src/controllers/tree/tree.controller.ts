@@ -1,6 +1,12 @@
-import { Body, Controller, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Post, Query } from '@nestjs/common';
 import { Get } from '@nestjs/common';
-import { ApiBody, ApiQuery, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBody,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { TreeUpdate } from 'src/models/tree/tree-update.model';
 import { TreeService } from 'src/services/tree/tree.service';
 
@@ -9,34 +15,34 @@ import { TreeService } from 'src/services/tree/tree.service';
 export class TreeController {
   constructor(private readonly treeService: TreeService) {}
 
-  /**
-   * 获取树形图
-   * @returns 树形图
-   */
+  @ApiOperation({
+    tags: ['获取树形图'],
+    description: '获取树形图',
+    deprecated: false,
+  })
   @ApiResponse({ description: '获取树形图' })
-  @Get('findAll')
+  @Get()
   async findAll() {
     return this.treeService.findAll();
   }
 
-  /**
-   *  删除树
-   * @param sid id
-   * @returns 树列表
-   */
-  @ApiQuery({ name: 'sid' })
-  @ApiResponse({ description: '更新树' })
-  @Get('delete')
-  async delete(@Query() query) {
-    return this.treeService.delete(query.sid);
+  @ApiOperation({
+    tags: ['删除树节点'],
+    description: '删除树节点',
+    deprecated: false,
+  })
+  @ApiQuery({ name: 'id' })
+  @ApiResponse({ description: '删除树节点' })
+  @Delete(':id')
+  async delete(@Param('id') id: string) {
+    return this.treeService.delete(id);
   }
 
-  /**
-   * 更新树
-   * @param sid 节点id
-   * @param tree 树
-   * @returns
-   */
+  @ApiOperation({
+    tags: ['更新树'],
+    description: '更新树',
+    deprecated: false,
+  })
   @ApiBody({ type: TreeUpdate })
   @ApiResponse({ description: '更新树' })
   @Post('update')

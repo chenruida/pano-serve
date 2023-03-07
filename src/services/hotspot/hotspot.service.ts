@@ -11,6 +11,11 @@ export class HotspotService {
     @InjectModel('hotspot')
     private hotspotModel: Model<HotspotDocument>,
   ) {}
+
+  async findByIds(ids: [string]) {
+    return await this.hotspotModel.findById(ids);
+  }
+
   async create(createHotspotDto: CreateHotspotDto) {
     return await this.hotspotModel.create(createHotspotDto);
   }
