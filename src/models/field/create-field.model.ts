@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { FiledConfig } from './filed-config.model';
-import { raw } from '@nestjs/mongoose';
 
 export class CreateFieldDto {
   @ApiProperty({ description: '字段配置', type: FiledConfig })
@@ -8,10 +7,6 @@ export class CreateFieldDto {
 
   @ApiProperty({
     description: '占位符',
-    type: raw({
-      prepend: String,
-      append: String,
-    }),
   })
   slot: {
     prepend: string;

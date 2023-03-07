@@ -10,7 +10,7 @@ import {
 import { TreeUpdate } from 'src/models/tree/tree-update.model';
 import { TreeService } from 'src/services/tree/tree.service';
 
-@ApiTags('树形图API')
+@ApiTags('树形图')
 @Controller('tree')
 export class TreeController {
   constructor(private readonly treeService: TreeService) {}
