@@ -2,8 +2,10 @@ import {
   Controller,
   Post,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiBody, ApiConsumes, ApiResponse } from '@nestjs/swagger';
 import { FileUploadDto } from 'src/models/file/file-upload.model';
@@ -11,6 +13,7 @@ import { FileService } from 'src/services/file/file.service';
 
 @ApiTags('文件上传')
 @Controller('file')
+@UseGuards(AuthGuard('jwt'))
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
@@ -34,6 +37,7 @@ export class FileController {
     type: FileUploadDto,
   })
   @ApiResponse({ description: '文件地址' })
+  @UseGuards(AuthGuard('jwt'))
   upload(@UploadedFile() file: Express.Multer.File) {
     return file;
   }

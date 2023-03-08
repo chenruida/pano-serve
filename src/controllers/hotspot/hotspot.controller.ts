@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { HotspotService } from 'src/services/hotspot/hotspot.service';
 import { CreateHotspotDto } from 'src/models/hotspot/create-hotspot.dto';
@@ -19,7 +20,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { query } from 'express';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('热点API')
 @Controller('hotspot')
@@ -34,6 +35,7 @@ export class HotspotController {
   @ApiBody({ type: CreateHotspotDto })
   @ApiResponse({ description: '创建热点' })
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createHotspotDto: CreateHotspotDto) {
     return this.hotspotService.create(createHotspotDto);
   }
@@ -46,6 +48,7 @@ export class HotspotController {
   @ApiQuery({ name: 'ids', type: [String] })
   @ApiResponse({ description: '热点列表' })
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   findAll(@Query('ids') query) {
     return this.hotspotService.findByIds(query.ids);
   }
@@ -58,6 +61,7 @@ export class HotspotController {
   @Get(':id')
   @ApiResponse({ description: '通过id查找 单个' })
   @ApiParam({ name: 'id' })
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.hotspotService.findOne(id);
   }
@@ -71,6 +75,7 @@ export class HotspotController {
   @ApiResponse({ description: '更新' })
   @ApiParam({ name: 'id', type: String })
   @ApiBody({ type: UpdateHotspotDto })
+  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() updateHotspotDto: UpdateHotspotDto) {
     return this.hotspotService.update(id, updateHotspotDto);
   }
@@ -78,6 +83,7 @@ export class HotspotController {
   @Delete(':id')
   @ApiResponse({ description: '删除' })
   @ApiParam({ name: 'id', type: String })
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.hotspotService.remove(id);
   }

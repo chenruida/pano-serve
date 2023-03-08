@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { GoodsService } from 'src/services/goods/goods.service';
 import { CreateGoodDto } from 'src/models/goods/create-good.dto';
@@ -20,6 +21,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('商品')
 @Controller('goods')
@@ -34,6 +36,7 @@ export class GoodsController {
   @ApiResponse({ description: '返回带id的详细', status: 200 })
   @ApiInternalServerErrorResponse({ description: '服务端异常' })
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createGoodDto: CreateGoodDto) {
     return this.goodsService.create(createGoodDto);
   }
@@ -46,6 +49,7 @@ export class GoodsController {
   })
   @ApiQuery({ name: 'pageNumber', type: Number, description: '页码' })
   @ApiQuery({ name: 'pageSize', type: Number, description: '条数' })
+  @UseGuards(AuthGuard('jwt'))
   async findAll(@Query() query) {
     return await this.goodsService.findAll(+query.pageNumber, +query.pageSize);
   }
@@ -57,6 +61,7 @@ export class GoodsController {
   })
   @Get(':id')
   @ApiParam({ name: 'id', type: String, description: 'id' })
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.goodsService.findOne(id);
   }
@@ -73,6 +78,7 @@ export class GoodsController {
     description: '更新后的信息',
   })
   @ApiResponse({ description: '更新前的信息' })
+  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() updateGoodDto: UpdateGoodDto) {
     return this.goodsService.update(id, updateGoodDto);
   }
@@ -83,6 +89,7 @@ export class GoodsController {
   })
   @Delete(':id')
   @ApiParam({ name: 'id', type: String, description: 'id' })
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.goodsService.remove(id);
   }

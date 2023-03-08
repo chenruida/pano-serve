@@ -17,6 +17,7 @@ async function bootstrap() {
      */
     logger: IS_DEV ? ['log', 'debug', 'error', 'warn'] : ['error', 'warn'],
   });
+
   /**
    * swagger 配置
    */
@@ -25,6 +26,7 @@ async function bootstrap() {
     .setDescription('环物全景后台')
     .setVersion('1.0')
     .addTag('pano')
+    .addBearerAuth()
     .build();
   const document = SwaggerModule.createDocument(app, options);
   SwaggerModule.setup(PREFIX, app, document);

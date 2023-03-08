@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { FieldService } from '../../services/field/field.service';
 import {
   ApiBody,
@@ -10,6 +10,7 @@ import {
 import { Field } from 'src/schemas/field.schema';
 import { FieldUpdate } from 'src/models/field/field-update.model';
 import { CreateFieldDto } from 'src/models/field/create-field.model';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('字段')
 @Controller('field')
@@ -23,6 +24,7 @@ export class FieldController {
   })
   @ApiResponse({ description: '获取全部字段', type: [Field] })
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   async findAll(): Promise<Field[]> {
     return this.fieldService.findAll();
   }
@@ -38,6 +40,7 @@ export class FieldController {
     type: CreateFieldDto || [CreateFieldDto],
   })
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   async createAll(@Body() fileds: [Field]): Promise<Field[]> {
     return this.fieldService.createAll(fileds);
   }
@@ -50,6 +53,7 @@ export class FieldController {
   @ApiQuery({ name: 'ids', type: [String] })
   @ApiResponse({ description: '查找字段列表', type: [Field] })
   @Get('find')
+  @UseGuards(AuthGuard('jwt'))
   async find(@Query() query): Promise<Field[]> {
     return this.fieldService.findByIds(query.ids);
   }
@@ -64,6 +68,7 @@ export class FieldController {
     description: '删除字段列表',
   })
   @Get('delete')
+  @UseGuards(AuthGuard('jwt'))
   async delete(@Query() query): Promise<any> {
     return this.fieldService.delete(query.ids);
   }
@@ -79,6 +84,7 @@ export class FieldController {
     type: [Field],
   })
   @Post('update')
+  @UseGuards(AuthGuard('jwt'))
   async update(@Body() fieldUpdate: FieldUpdate): Promise<Field> {
     return this.fieldService.update(fieldUpdate);
   }

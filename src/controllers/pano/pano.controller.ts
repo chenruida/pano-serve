@@ -6,14 +6,17 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { PanoService } from '../../services/pano/pano.service';
 import { CreatePanoDto } from '../../models/pano/create-pano.dto';
 import { UpdatePanoDto } from '../../models/pano/update-pano.dto';
 import { ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('环物全景')
 @Controller('pano')
+@UseGuards(AuthGuard('jwt'))
 export class PanoController {
   constructor(private readonly panoService: PanoService) {}
 
@@ -24,6 +27,7 @@ export class PanoController {
   })
   @ApiBody({ type: CreatePanoDto })
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   create(@Body() createPanoDto: CreatePanoDto) {
     return this.panoService.create(createPanoDto);
   }
@@ -34,6 +38,7 @@ export class PanoController {
     deprecated: true,
   })
   @Get()
+  @UseGuards(AuthGuard('jwt'))
   findAll() {
     return this.panoService.findAll();
   }
@@ -45,6 +50,7 @@ export class PanoController {
   })
   @ApiParam({ type: String, name: 'id' })
   @Get(':id')
+  @UseGuards(AuthGuard('jwt'))
   findOne(@Param('id') id: string) {
     return this.panoService.findOne(id);
   }
@@ -57,6 +63,7 @@ export class PanoController {
   @ApiParam({ type: String, name: 'id' })
   @ApiBody({ type: UpdatePanoDto })
   @Patch(':id')
+  @UseGuards(AuthGuard('jwt'))
   update(@Param('id') id: string, @Body() updatePanoDto: UpdatePanoDto) {
     return this.panoService.update(id, updatePanoDto);
   }
@@ -68,6 +75,7 @@ export class PanoController {
   })
   @ApiParam({ type: String, name: 'id' })
   @Delete(':id')
+  @UseGuards(AuthGuard('jwt'))
   remove(@Param('id') id: string) {
     return this.panoService.remove(id);
   }

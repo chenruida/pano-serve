@@ -11,6 +11,8 @@ import { FileModule } from './modules/file.module';
 import { PanoModule } from './modules/pano.module';
 import { AuthModule } from './modules/auth.module';
 import { UsersModule } from './modules/users.module';
+import { UserController } from './controllers/user/user.controller';
+import { APP_GUARD } from '@nestjs/core';
 @Module({
   imports: [
     setupConfig(),
@@ -24,7 +26,7 @@ import { UsersModule } from './modules/users.module';
     AuthModule,
     UsersModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, UserController],
   providers: [AppService],
 })
 export class AppModule {}
